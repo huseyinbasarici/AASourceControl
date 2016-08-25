@@ -38,18 +38,18 @@ workflow Invoke-RunbookUsingAlerts
         # Act on the AlertContext data, in our case restarting the VM. 
         # Authenticate to your Azure subscription using Organization ID to be able to restart that Virtual Machine. 
         $cred = Get-AutomationPSCredential -Name "ContosoAccount" 
-        Add-AzureAccount -Credential $cred 
+        Add-AzureRMAccount -Credential $cred 
         Select-AzureSubscription -subscriptionName "Azure Pass" 
  
         #Check the status property of the VM
         Write-Output "Status of VM before taking action"
-        Get-AzureVM -Name $AlertContext.resourceName -ServiceName $AlertContext.resourceName
+        Get-AzureRMVM -Name $AlertContext.resourceName -ServiceName $AlertContext.resourceName
         Write-Output "Restarting VM"
  
         # Restart the VM by passing VM name and Service name which are same in this case
-        Restart-AzureVM -ServiceName $AlertContext.resourceName -Name $AlertContext.resourceName 
+        Restart-AzureRMVM -ServiceName $AlertContext.resourceName -Name $AlertContext.resourceName 
         Write-Output "Status of VM after alert is active and takes action"
-        Get-AzureVM -Name $AlertContext.resourceName -ServiceName $AlertContext.resourceName
+        Get-AzureRMVM -Name $AlertContext.resourceName -ServiceName $AlertContext.resourceName
     } 
     else  
     { 
